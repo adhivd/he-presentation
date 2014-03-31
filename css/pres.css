@@ -22,9 +22,10 @@
 
 
 .notecard {
-  width:700px;
-  height:400px;
+  width:650px;
+  height:350px;
   background-color:#fff;
   color:#000;
   border-radius:5px;
+  padding:50px;
 }

@@ -550,19 +550,25 @@
 
         // `prev` API function goes to previous step (in document order)
         var prev = function () {
-            var prev = steps.indexOf( activeStep ) - 1;
-            prev = prev >= 0 ? steps[ prev ] : steps[ steps.length-1 ];
-
-            return goto(prev);
+            var prev = steps.indexOf(activeStep) - 1;
+            if (this.beforePrev(prev)) {
+                prev = prev >= 0 ? steps[prev] : steps[steps.length - 1];
+                return goto(prev);
+            }
         };
 
         // `next` API function goes to next step (in document order)
         var next = function () {
             var next = steps.indexOf( activeStep ) + 1;
-            next = next < steps.length ? steps[ next ] : steps[ 0 ];
-
-            return goto(next);
+            if (this.beforeNext(next)) {
+                next = next < steps.length ? steps[next] : steps[0];
+                return goto(next);
+            }
         };
+
+        var beforeNext = function () { return true; }
+
+        var beforePrev = function () { return true; }
 
         // Adding some useful classes to step elements.
         //

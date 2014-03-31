@@ -29,3 +29,9 @@
   border-radius:5px;
   padding:50px;
 }
+
+#main-list {
+    text-align:left;
+    width:700px;
+    color:#fff;
+}

@@ -4,14 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=1024" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>impress.js | presentation tool based on the power of CSS3 transforms and transitions in modern browsers | by Bartek Szopka @bartaz</title>
+    <title>Halcyon Echoes FBLA Presentation</title>
 
-    <meta name="description" content="impress.js is a presentation tool based on the power of CSS3 transforms and transitions in modern browsers and inspired by the idea behind prezi.com." />
-    <meta name="author" content="Bartek Szopka" />
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.0.min.js"></script>
     <script type="text/javascript" src="js/jquery.flippy.min.js"></script>
 
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
     <link href="css/impress.css" rel="stylesheet" />
     <link href="css/pres.css" rel="stylesheet" />
     <link href="fonts/railway/Railway-font.css" rel="stylesheet" />
@@ -41,6 +38,14 @@
             <p style="color:#fff;font-size:60px;">
                 Lynbrook FBLA
             </p>
+            <script type="text/javascript">
+                beforeNext[0] = (function () {
+                    $("#main-list").children().fadeOut(function () {
+                        $(this).removeClass("shown");
+                    });
+                    return true;
+                });
+            </script>
         </div>
 
         <div style="text-align:center;" id="definition" class="step" data-x="0" data-y="-1500">
@@ -79,6 +84,9 @@
                         flipped = !flipped;
                         return false;
                     }
+                    $("#main-list").children().fadeOut(function () {
+                        $(this).removeClass("shown");
+                    });
                     return true;
                 });
             </script>
@@ -97,20 +105,49 @@
             <h1 class="list-item">3) Customer Experience</h1>
             <h1 class="list-item">4) Use of Media</h1>
             <script type="text/javascript">
-                var shownStep = false;
-                function beforeItem() {
-                    if (!shownStep) {
+                var doFadeIn = true;
+                function handleShowItem() {
+                    if (doFadeIn) {
                         $("#main-list").children().not(".shown").first().fadeIn(function () {
                             $(this).addClass("shown");
                         });
-                        shownStep = true;
+                        doFadeIn = false; //next time around, just go to the next step
+                        doFadeOut = true; //if we click "back" from here, fade it out
                         return false;
                     }
-                    shownStep = false;
-                    return true;
+                    else {
+                        doFadeIn = true; //next time we want to fade in
+                        doFadeOut = false;
+                        return true;
+                    }
                 }
-                beforeNext[4] = beforeItem;
-                beforeNext[5] = beforeItem;
+
+                var doFadeOut = false;
+                function handleHideItem() {
+                    if (doFadeOut) {
+                        $("#main-list").children(".shown").last().fadeOut(function () {
+                            $(this).removeClass("shown");
+                        });
+                        doFadeOut = false;
+                        doFadeIn = true;
+                        return false;
+                    }
+                    doFadeOut = false;
+                    return true;
+                };
+
+                beforeNext[4] = handleShowItem;
+                beforeNext[5] = handleShowItem;
+
+                beforePrev[2] = handleHideItem;
+                beforePrev[4] = handleHideItem;
+                beforePrev[5] = handleHideItem;
+
+                beforePrev[3] = (function () {
+                    doFadeIn = true;
+                    doFadeOut = true;
+                    return true;
+                });
             </script>
         </div>
         <!-- 4 -->
@@ -138,6 +175,9 @@
         api.init();
         var path = [0, 1, 2, 3, 4, 3, 5, 3];
         var curr = 0;
+        $("#main-list").children().fadeOut(function () {
+            $(this).removeClass("shown");
+        });
         var cycle = true;
 
         api.goto(curr);

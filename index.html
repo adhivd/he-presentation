@@ -149,6 +149,7 @@
         api.init();
         var path = [0, 1, 2, 3, 4, 3, 5, 3];
         var curr = 0;
+        var cycle = true;
 
         api.goto(curr);
 
@@ -173,7 +174,12 @@
         function fakeNext() {
             var next = curr + 1;
             if (next >= path.length) {
-                next = curr;
+                if (!cycle) {
+                    next = curr;
+                }
+                else {
+                    next = 0;
+                }
             }
             if (doBeforeNext(path[next])) {
                 api.goto(path[next]);
@@ -184,7 +190,12 @@
         function fakePrev() {
             next = curr - 1;
             if (next < 0) {
-                next = 0;
+                if (!cycle) {
+                    next = 0;
+                }
+                else {
+                    next = path.length - 1;
+                }
             }
             if (doBeforePrev(path[next])) {
                 api.goto(path[next]);

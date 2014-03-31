@@ -40,7 +40,9 @@
 
       <div style="text-align:center;" id="definition" class="step" data-x="0" data-y="-1500">
           <div class="half-horiz notecard" id="notecard">
+            <div class="half-vert">
               Halcyon Echoes
+            </div>
           </div>
           <!--<button id="flip-btn">flip</button></button>-->
           <script type="text/javascript">
@@ -53,8 +55,9 @@
                     $("#notecard").flippyReverse();
                   }
                   else {
+                    var defCont = "definition of halcyon";
                     $("#notecard").flippy({
-                      verso: "the definition",
+                      verso: '<div class="half-vert">' + defCont + '</div>',
                       direction: "BOTTOM",
                       noCSS: true //CSS makes it look weird, it's a huge flip
                     });

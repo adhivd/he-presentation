@@ -33,5 +33,10 @@
 #main-list {
     text-align:left;
     width:700px;
+    height:500px;
     color:#fff;
+}
+
+.list-item {
+    display:none;
 }

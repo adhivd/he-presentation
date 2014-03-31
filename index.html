@@ -89,48 +89,37 @@
         </div>
         <!-- 3 -->
         <div id="main-list" class="step" data-x="0" data-y="0" data-scale="4">
-            <h1 style="background-color:#ff0000;width:100%;">1) Development of Topic</h1>
-            <h1>2) Three Pillars</h1>
-            <h1>&nbsp;&nbsp;&nbsp;&nbsp;a) Organization</h1>
-            <h1>&nbsp;&nbsp;&nbsp;&nbsp;b) Performance</h1>
-            <h1>&nbsp;&nbsp;&nbsp;&nbsp;c) Elegance</h1>
-            <h1>3) Customer Experience</h1>
-            <h1>4) Use of Media</h1>
+            <h1 class="list-item">1) Development of Topic</h1>
+            <h1 class="list-item">2) Three Pillars</h1>
+            <h1 class="list-item">&nbsp;&nbsp;&nbsp;&nbsp;a) Organization</h1>
+            <h1 class="list-item">&nbsp;&nbsp;&nbsp;&nbsp;b) Performance</h1>
+            <h1 class="list-item">&nbsp;&nbsp;&nbsp;&nbsp;c) Elegance</h1>
+            <h1 class="list-item">3) Customer Experience</h1>
+            <h1 class="list-item">4) Use of Media</h1>
+            <script type="text/javascript">
+                var shownStep = false;
+                function beforeItem() {
+                    if (!shownStep) {
+                        $("#main-list").children().not(".shown").first().fadeIn(function () {
+                            $(this).addClass("shown");
+                        });
+                        shownStep = true;
+                        return false;
+                    }
+                    shownStep = false;
+                    return true;
+                }
+                beforeNext[4] = beforeItem;
+                beforeNext[5] = beforeItem;
+            </script>
         </div>
         <!-- 4 -->
         <div id="step-one" class="step" data-x="1400" data-y="-850" data-scale="2">
             hello
-            <script type="text/javascript">
-                //beforeNext[4] = (function () {
-                //    if (onAStep) {
-                //        onAStep = true;
-                //        api.goto(3);
-                //    }
-                //    api.goto(lastSeenStep + 1);
-                //    if (seenSteps[5] == null || seenSteps[5] == false) {
-                //        api.goto(3);
-                //    } else {
-                //        api.goto(5);
-                //        seenSteps[5] == true;
-                //    }
-                //    return false;
-                //});
-            </script>
         </div>
         <!-- 5 -->
         <div id="step-two" class="step" data-x="1400" data-y="-600" data-scale="2">
             hello2
-            <script type="text/javascript">
-                //beforeNext[5] = (function () {
-                //    if (seenSteps[5] == null || seenSteps[5] == false) {
-                //        api.goto(3);
-                //    } else {
-                //        api.goto(5);
-                //        seenSteps[5] == true;
-                //    }
-                //    return false;
-                //});
-            </script>
         </div>
     </div>
 

@@ -38,5 +38,6 @@
 }
 
 .list-item {
-    display:none;
+    /*display:none;*/
+    background-color:#373737;
 }
